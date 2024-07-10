@@ -12,6 +12,7 @@ document.getElementById("startBtn").addEventListener("click", function () {
   if (!started) {
     started = true;
     levelUp();
+    document.getElementById("startIns").style.display = "block"; // Show start instructions
   }
   this.style.display = "none";
 });
@@ -43,6 +44,7 @@ document.addEventListener("keypress", function () {
   if (!started) {
     started = true;
     levelUp();
+    document.getElementById("startIns").style.display = "block"; // Show start instructions
   }
 });
 
@@ -93,9 +95,6 @@ function checkAns(idx) {
 
     h2.innerHTML = `Game Over! <br> Your score: <b>${level}</b> <br> Press any key to start.`;
     document.querySelector("body").style.backgroundColor = "red";
-    setTimeout(function () {
-      document.querySelector("body").style.backgroundColor = "black";
-    }, 200);
     reset();
   }
 }

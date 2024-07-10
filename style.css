@@ -176,6 +176,10 @@ h2 {
     .start-btn {
         display: block;
     }
+
+    #startIns {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 768px) {
