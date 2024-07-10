@@ -1,25 +1,29 @@
 document.addEventListener("DOMContentLoaded", function () {
-  if (window.matchMedia("(max-width: 768px)").matches || window.matchMedia("(max-width: 1200px)").matches) {
-      document.getElementById("warningBox").style.display = "block";
-  } else {
-      setTimeout(function () {
-          document.querySelector(".preloader").classList.add("fade-out");
-          document.getElementById("howToPlayBtn").style.display = "block";
-      }, 1500);
-      setTimeout(function () {
-          document.querySelector(".preloader").style.display = "none";
-      }, 1500);
+  setTimeout(function () {
+    document.querySelector(".preloader").classList.add("fade-out");
+    document.getElementById("howToPlayBtn").style.display = "block";
+  }, 1000);
+  setTimeout(function () {
+    document.querySelector(".preloader").style.display = "none";
+  }, 1500);
+});
+
+document.getElementById("startBtn").addEventListener("click", function () {
+  if (!started) {
+    started = true;
+    levelUp();
   }
+  this.style.display = "none";
 });
 
 function closeWarning() {
   document.getElementById("warningBox").style.display = "none";
   setTimeout(function () {
-      document.querySelector(".preloader").classList.add("fade-out");
-      document.getElementById("howToPlayBtn").style.display = "block";
+    document.querySelector(".preloader").classList.add("fade-out");
+    document.getElementById("howToPlayBtn").style.display = "block";
   }, 500);
   setTimeout(function () {
-      document.querySelector(".preloader").style.display = "none";
+    document.querySelector(".preloader").style.display = "none";
   }, 1500);
 }
 
@@ -36,36 +40,36 @@ let highestScoreElement = document.getElementById("highest-score");
 highestScoreElement.textContent = `Highest Score: ${highestScore}`;
 
 document.addEventListener("keypress", function () {
-  if (started == false) {
+  if (!started) {
     started = true;
     levelUp();
   }
 });
 
 function gameFlash(btn) {
-    btn.classList.add("flash");
-    let flashSound = document.getElementById("flashSound");
-    flashSound.play();
-    setTimeout(function () {
-      btn.classList.remove("flash");
-    }, 500);
+  btn.classList.add("flash");
+  let flashSound = document.getElementById("flashSound");
+  flashSound.play();
+  setTimeout(function () {
+    btn.classList.remove("flash");
+  }, 500);
 }
-  
+
 function userFlash(btn) {
-    btn.classList.add("userflash");
-    let flashSound = document.getElementById("flashSound");
-    flashSound.play();
-    setTimeout(function () {
-      btn.classList.remove("userflash");
-    }, 500);
-}  
+  btn.classList.add("userflash");
+  let flashSound = document.getElementById("flashSound");
+  flashSound.play();
+  setTimeout(function () {
+    btn.classList.remove("userflash");
+  }, 500);
+}
 
 function levelUp() {
   userSeq = [];
   level++;
   h2.innerText = `Level ${level}`;
 
-  let randIdx = Math.floor(Math.random() * 3);
+  let randIdx = Math.floor(Math.random() * 4);
   let randColor = btns[randIdx];
   let randBtn = document.querySelector(`.${randColor}`);
   gameSeq.push(randColor);
@@ -74,13 +78,13 @@ function levelUp() {
   if (level > highestScore) {
     highestScore = level;
     highestScoreElement.textContent = `Highest Score: ${highestScore}`;
-    localStorage.setItem("highestScore", highestScore); 
+    localStorage.setItem("highestScore", highestScore);
   }
 }
 
 function checkAns(idx) {
   if (userSeq[idx] === gameSeq[idx]) {
-    if (userSeq.length == gameSeq.length) {
+    if (userSeq.length === gameSeq.length) {
       setTimeout(levelUp, 1000);
     }
   } else {
@@ -100,14 +104,14 @@ function btnPress() {
   let btn = this;
   userFlash(btn);
 
-  userColor = btn.getAttribute("id");
+  let userColor = btn.getAttribute("id");
   userSeq.push(userColor);
 
   checkAns(userSeq.length - 1);
 }
 
 let allBtns = document.querySelectorAll(".btn");
-for (btn of allBtns) {
+for (let btn of allBtns) {
   btn.addEventListener("click", btnPress);
 }
 
