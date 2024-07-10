@@ -154,6 +154,18 @@ h2 {
     cursor: pointer;
 }
 
+.restart-btn {
+    display: none;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: red;
+    color: white;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1200px) {
     .btn {
         width: 250px;
@@ -179,6 +191,10 @@ h2 {
 
     #startIns {
         display: none;
+    }
+
+    .restart-btn {
+        display: block;
     }
 }
 
@@ -217,4 +233,11 @@ h2 {
     #startIns {
         display: none;
     }
+
+    .restart-btn {
+        display: block;
+    }
 }
+
+
+

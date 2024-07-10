@@ -44,7 +44,7 @@ document.addEventListener("keypress", function () {
   if (!started) {
     started = true;
     levelUp();
-    document.getElementById("startIns").style.display = "block"; // Show start instructions
+    document.getElementById("startIns").style.display = "block";
   }
 });
 
@@ -93,11 +93,21 @@ function checkAns(idx) {
     let gameOverSound = document.getElementById("gameOverSound");
     gameOverSound.play();
 
-    h2.innerHTML = `Game Over! <br> Your score: <b>${level}</b> <br> Press any key to start.`;
+    if (window.matchMedia("(max-width: 768px)").matches) {
+      h2.innerHTML = `Game Over! <br> Your score: <b>${level}</b> <br>`;
+      document.getElementById("restartBtn").style.display = "block";
+    } else {
+      h2.innerHTML = `Game Over! <br> Your score: <b>${level}</b> <br> Press any key to start.`;
+    }
+    
     document.querySelector("body").style.backgroundColor = "red";
+    setTimeout(function () {
+      document.querySelector("body").style.backgroundColor = "black";
+    }, 500);
     reset();
   }
 }
+
 
 function btnPress() {
   let btn = this;
@@ -114,12 +124,20 @@ for (let btn of allBtns) {
   btn.addEventListener("click", btnPress);
 }
 
+document.getElementById("restartBtn").addEventListener("click", function () {
+  reset();
+  document.getElementById("startBtn").style.display = "block";
+  document.getElementById("restartBtn").style.display = "none";
+  document.getElementById("startIns").style.display = "none";
+});
+
 function reset() {
   started = false;
   gameSeq = [];
   userSeq = [];
   level = 0;
 }
+
 
 function showInstructions() {
   document.getElementById("dialogBox").style.display = "block";
